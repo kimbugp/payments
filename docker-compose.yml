@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  postgres:
+    image: postgres:11-alpine
+    ports:
+      - "65432:5432"
+    environment:
+      - POSTGRES_USER=Mirest
+      - POSTGRES_DB=Mirest
+      - POSTGRES_PASSWORD=Mirest
+  redis:
+    image: redis
+    command: redis-server
+  api:
+    build: .
+    command: ./runserver.sh
+    volumes:
+      - .:/usr/apps
+    labels:
+      org.label-schema.name: "Mirest"
+      org.label-schema.description: "Mirest API"
+      com.label-schema.service-type: "apis"
+    ports:
+      - "4070:4070"
+    depends_on:
+      - postgres
+      - redis

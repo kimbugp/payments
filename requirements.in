@@ -1,0 +1,80 @@
+# Everything needed in production
+
+# Flask
+Flask
+Werkzeug
+click
+
+# Database
+Flask-SQLAlchemy
+SQLAlchemy
+psycopg2-binary
+
+
+# Migrations
+Flask-Migrate
+
+# Forms
+# Flask-WTF
+Flask-WTF
+# WTForms
+
+# Deployment
+gevent
+gunicorn
+
+# Webpack
+# flask-webpack
+
+# Auth
+Flask-Login
+Flask-Bcrypt
+cryptography
+PyJWT
+
+# error reporting
+rollbar
+
+# Caching
+Flask-Caching
+
+# Debug toolbar
+Flask-DebugToolbar
+
+# Environment variable parsing
+environs
+
+
+# web test
+WebTest
+
+# testing
+Pytest
+pytest-cov
+factory-boy
+
+# lint
+black 
+flake8
+
+# marshals
+flask-marshmallow
+marshmallow_sqlalchemy
+
+
+# jwt
+PyJWT
+cryptography
+
+# logging
+rollbar
+
+
+# pytest
+pytest
+
+# faker
+faker
+
+# coverage
+pytest-cov
