@@ -13,12 +13,15 @@ from apps.utils.auth import Auth
 from apps.utils.error_handlers import handle_exception
 from apps.utils.handled_errors import BaseModelValidationError
 from apps.utils.validators import json_validator
+from flask_cors import CORS
 
 
 def create_app(config_object="apps.settings"):
     app = Flask(__name__.split(".")[0])
     app.config.from_object(config_object)
     app.url_map.strict_slashes = False
+
+    CORS(app)
 
     register_extensions(app)
     register_blueprints(app)
@@ -28,7 +31,7 @@ def create_app(config_object="apps.settings"):
     register_before_register(app)
     configure_logger(app)
     with app.app_context():
-        stripe.api_key = current_app.config.get('STRIPE_SKEY')
+        stripe.api_key = current_app.config.get("STRIPE_SKEY")
         app.stripe = stripe
     return app
 
