@@ -2,11 +2,12 @@
 import logging
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, current_app
 from flask_marshmallow import Marshmallow
 from apps import commands
+import stripe
 
-from apps import locations
+from apps import locations, payments
 from apps.extensions import cache, csrf_protect, db, debug_toolbar, migrate  # noqa
 from apps.utils.auth import Auth
 from apps.utils.error_handlers import handle_exception
@@ -26,6 +27,9 @@ def create_app(config_object="apps.settings"):
     register_commands(app)
     register_before_register(app)
     configure_logger(app)
+    with app.app_context():
+        stripe.api_key = current_app.config.get('STRIPE_SKEY')
+        app.stripe = stripe
     return app
 
 
@@ -44,6 +48,7 @@ def register_extensions(app):
 def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(locations.views.blueprint)
+    app.register_blueprint(payments.views.blueprint)
 
     return None
 
@@ -80,5 +85,4 @@ def configure_logger(app):
 
 def register_before_register(app):
     # app.before_request(Auth.check_token)
-    # app.before_request(Auth.check_location_header)
     app.before_request(json_validator)

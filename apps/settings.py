@@ -51,3 +51,9 @@ JWT_AUTH_SCHEME = env.str("JWT_AUTH_SCHEME", default="JWT")
 # Mirest API token
 MIREST_API_TOKEN = env.str("MIREST_API_TOKEN")
 API_AUTH_URL = env.str("API_AUTH_URL")
+
+
+# Stripe
+STRIPE_ENDPOINT_SECRET = env.str("STRIPE_ENDPOINT_SECRET")
+STRIPE_PKEY = env.str("STRIPE_PKEY")
+STRIPE_SKEY = env.str("STRIPE_SKEY")

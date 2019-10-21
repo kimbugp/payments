@@ -124,24 +124,3 @@ class Auth:
                 type(error), (jwt_errors["SERVER_ERROR_MESSAGE"], 500)
             )
             raise BaseModelValidationError(message, status_code)
-
-    @staticmethod
-    def check_location_header():
-        if request.method != "OPTIONS":
-            for endpoint in Auth.location_header_ignore:
-                # If endpoint in request.path, ignore this check
-                if request.path.find(endpoint) > -1:
-                    return None
-            try:
-                Auth.get_location()
-            except Exception as e:
-                return make_response(jsonify({"msg": str(e)}), 400)
-
-    @staticmethod
-    def get_location():
-        location = request.headers.get("X-Location", None)
-        if not location:
-            raise BaseModelValidationError(location_errors["NO_LOCATION"], 400)
-        if not location.isdigit():
-            raise BaseModelValidationError(location_errors["IS_DIGIT"], 400)
-        return int(location)
